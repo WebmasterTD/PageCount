@@ -75,21 +75,6 @@ def receive_signal(signum, stack):
     total_label.configure(text = updated_totals)
 
 def receive_signal2(signum, stack):
-    """
-    text = ["black_a4_copy",
-            "black_a3_copy",
-            "black_a4_print",
-            "black_a3_print",
-            "color_a4_copy",
-            "color_a4_print",
-            "color_a3_copy",
-            "color_a3_print",
-            "scan_a4",
-            "scan_a3",
-            "duplex",
-            "pages",
-            "originals"]
-    """
     text = ["black_a4",
             "black_a3",
             "color_a4",
