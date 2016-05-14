@@ -6,19 +6,19 @@ from libs import counter
 
 def init_codes():
     code = list()
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.5.1.1"))                  #black_a4_copy
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.7.1.1"))                  #black_a3_copy
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.5.1.2"))                  #black_a4_print
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.7.1.2"))                  #black_a3_print
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.5.2.1"))                  #color_a4_copy
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.7.2.1"))                  #color_a4_print
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.5.2.2"))                  #color_a3_copy
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.7.2.2"))                  #color_a3_print
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.3.1.5.1"))                    #scan_a4
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.3.1.6.1"))                    #scan_a3
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.1.3.0"))                      #duplex
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.1.10.0"))                     #pages
-    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.1.8.0"))                      #originals
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.5.1.1"))                  # 0 black_total_copy
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.7.1.1"))                  # 1 black_a3_copy
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.5.1.2"))                  # 2 black_total_print
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.7.1.2"))                  # 3 black_a3_print
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.5.2.1"))                  # 4 color_total_copy
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.7.2.1"))                  # 5 color_a3_copy
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.5.2.2"))                  # 6 color_total_print
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.2.1.7.2.2"))                  # 7 color_a3_print
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.3.1.5.1"))                    # 8 scan_a4
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.3.1.6.1"))                    # 9 scan_a3
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.1.3.0"))                      # 10 duplex
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.1.10.0"))                     # 11 pages
+    code.append(counter(".1.3.6.1.4.1.18334.1.1.1.5.7.2.1.8.0"))                      # 12 originals
     return code
 
 def get_all_delta():
@@ -37,11 +37,12 @@ def deltas_2_values(delta):
     values.append(0)                                                    #D BW A4
     values.append(0)                                                    #D BW A3
 
+    #if there was more than one duplex pages
     if delta[10] > 0:
         if (2 * delta[10]) == values[0]:
             values[0] = values[0] - (2 * delta[10])
             values[5] = delta[10]
-        elif (2 * delta[10]) == values[0]:
+        elif (2 * delta[10]) == values[1]:
             values[1] = values[1] - (2 * delta[10])
             values[6] = delta[10]
 
