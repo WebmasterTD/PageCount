@@ -39,7 +39,7 @@ def deltas_2_values(delta):
     ids = delta[12] - delta[11]
     #if there was more than one duplex pages
     if delta[10] > 0:
-        if (values[2] + values[3] > 0):
+        if ((values[2] + values[3]) == 0):
             if values[0] > 0:
                 values[0] = values[0] - (2 * delta[10])                 #duplex A4
                 values[5] = delta[10]
@@ -65,7 +65,6 @@ def values_2_str(values):
     return s
 
 def receive_signal(signum, stack):
-    print "got signal"
     deltas = get_all_delta()
     job_vals = deltas_2_values(deltas)
     total_vals = all_sum(job_vals)
