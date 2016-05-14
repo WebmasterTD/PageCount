@@ -29,27 +29,27 @@ def get_all_delta():
 
 def deltas_2_values(delta):
     values = list()
-    values.append((delta[0] + delta[2]) - (2 * (delta[1] + delta[3])))  #BW A4
-    values.append(delta[1] + delta[3])                                  #BW A3
-    values.append((delta[4] + delta[6]) - (2 * (delta[5] + delta[7])))  #CL A4
-    values.append(delta[5] + delta[7])                                  #CL A3
-    values.append(delta[8] + delta[9])                                  #SCAN
-    values.append(0)                                                    #D BW A4
-    values.append(0)                                                    #D BW A3
-
+    values.append((delta[0] + delta[2]) - (2 * (delta[1] + delta[3])))  # 0 BW A4
+    values.append(delta[1] + delta[3])                                  # 1 BW A3
+    values.append((delta[4] + delta[6]) - (2 * (delta[5] + delta[7])))  # 2 CL A4
+    values.append(delta[5] + delta[7])                                  # 3 CL A3
+    values.append(delta[8] + delta[9])                                  # 4 SCAN
+    values.append(0)                                                    # 5 D BW A4
+    values.append(0)                                                    # 6 D BW A3
+    ids = delta[12] - delta[11]
     #if there was more than one duplex pages
     if delta[10] > 0:
-        if (2 * delta[10]) == values[0]:
-            values[0] = values[0] - (2 * delta[10])
-            values[5] = delta[10]
-        elif (2 * delta[10]) == values[1]:
-            values[1] = values[1] - (2 * delta[10])
-            values[6] = delta[10]
-
-    ids = delta[12] - delta[11]          #originals - pages
-    if ids > 0 and values[0] == delta[0]:
+        if (values[2] + values[3] > 0):
+            if values[0] > 0:
+                values[0] = values[0] - (2 * delta[10])                 #duplex A4
+                values[5] = delta[10]
+            else:
+                values[1] = values[1] - (2 * delta[10])                 #duplex A3
+                values[6] = delta[10]
+    elif ids > 0 and (delta[0] - (2 * delta[1]) > 0):
         values[0] = values[0] - (ids)
         values[5] = ids
+
     return values
 
 def all_sum(values):
@@ -130,7 +130,7 @@ text_label = Label(root, text=text, font=("Arial", 60), padx=80, pady=130, justi
 total_label = Label(root, text="0", font=("Arial", 60), padx=10, pady=130)
 
 root.bind("<Button-1>", reset_button)
-root.bind("<Shift_L>", exit_gracefully)
+root.bind("<Button-2>", exit_gracefully)
 text_label.grid(row=1,column=0,sticky=N)
 total_label.grid(row=1,column=2,sticky=N)
 
